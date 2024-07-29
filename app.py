@@ -1,3 +1,6 @@
+import logging
+
+logger = logging.getLogger("uvicorn.error")
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -23,16 +26,11 @@ def get_db():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://2024-iot-lab2-65070155-ceft.vercel.app",
-        "https://2024-iot-lab2-65070155-ceft-3aexwix6x.vercel.app",
-        "https://2024-iot-lab2-65070155-git-b516d3-pichaya-phatcharoens-projects.vercel.app"
-    ],
+    allow_origins=["https://2024-iot-lab2-65070155-ceft.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # https://fastapi.tiangolo.com/tutorial/sql-databases/#crud-utils
 
@@ -46,12 +44,28 @@ async def get_book(book_id: int, db: Session = Depends(get_db)):
 
 @router_v1.post('/books')
 async def create_book(book: dict, response: Response, db: Session = Depends(get_db)):
-    newbook = models.Book(title=book['title'], author=book['author'], year = book['year'], is_published=book['is_published'],description=book['description'],prologue=book['prologue'],type1 = book['type1'],type2 = book['type2'],type3 = book['type3'],type4 = book['type4'] )
-    db.add(newbook)
-    db.commit()
-    db.refresh(newbook)
-    response.status_code = 201
-    return newbook
+    try:
+        newbook = models.Book(
+            title=book['title'], 
+            author=book['author'], 
+            year=book['year'], 
+            is_published=book['is_published'],
+            description=book['description'], 
+            prologue=book['prologue'], 
+            type1=book['type1'],
+            type2=book['type2'], 
+            type3=book['type3'], 
+            type4=book['type4']
+        )
+        db.add(newbook)
+        db.commit()
+        db.refresh(newbook)
+        response.status_code = 201
+        return newbook
+    except Exception as e:
+        logger.error(f"Error creating book: {e}")
+        response.status_code = 500
+        return {"error": "Internal Server Error"}
 
 @router_v1.patch('/books/{book_id}')
 async def update_book(book_id: int, book: dict, response: Response, db: Session = Depends(get_db)):
