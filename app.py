@@ -23,11 +23,16 @@ def get_db():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://2024-iot-lab2-65070155-ceft.vercel.app"],
+    allow_origins=[
+        "https://2024-iot-lab2-65070155-ceft.vercel.app",
+        "https://2024-iot-lab2-65070155-ceft-3aexwix6x.vercel.app",
+        "https://2024-iot-lab2-65070155-git-b516d3-pichaya-phatcharoens-projects.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # https://fastapi.tiangolo.com/tutorial/sql-databases/#crud-utils
 
