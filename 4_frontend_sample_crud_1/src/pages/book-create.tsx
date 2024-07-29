@@ -98,37 +98,37 @@ export default function BookCreatePage() {
             <TextInput
               label="รายละเอียดหนังสือ"
               placeholder="รายละเอียดหนังสือ"
-              {...bookEditForm.getInputProps("description")}
+              {...bookCreateForm.getInputProps("description")}
             />
 
             <TextInput
               label="เรื่องย่อหนังสือ"
               placeholder="เรื่องย่อหนังสือ"
-              {...bookEditForm.getInputProps("prologue")}
+              {...bookCreateForm.getInputProps("prologue")}
             />
 
             <TextInput
               label="ประเภทหนังสือ1"
               placeholder="ประเภทหนังสือ1"
-              {...bookEditForm.getInputProps("type1")}
+              {...bookCreateForm.getInputProps("type1")}
             />
 
             <TextInput
               label="ประเภทหนังสือ2"
               placeholder="ประเภทหนังสือ2"
-              {...bookEditForm.getInputProps("type2")}
+              {...bookCreateForm.getInputProps("type2")}
             />
             
             <TextInput
               label="ประเภทหนังสือ3"
               placeholder="ประเภทหนังสือ3"
-              {...bookEditForm.getInputProps("type3")}
+              {...bookCreateForm.getInputProps("type3")}
             />
             
             <TextInput
               label="ประเภทหนังสือ4"
               placeholder="ประเภทหนังสือ4"
-              {...bookEditForm.getInputProps("type4")}
+              {...bookCreateForm.getInputProps("type4")}
             />
 
             <Checkbox

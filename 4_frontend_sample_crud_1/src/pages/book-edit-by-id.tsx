@@ -28,10 +28,6 @@ export default function BookEditById() {
       description: "",
       prologue: "",
       is_published: false,
-      type1: "",
-      type2: "",
-      type3: "",
-      type4: "",
     },
 
     validate: {
