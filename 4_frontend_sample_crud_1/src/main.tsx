@@ -12,6 +12,7 @@ import { Notifications } from "@mantine/notifications";
 import BooksPage from "./pages/books";
 import BookByIdPage from "./pages/book-by-id";
 import BookEditById from "./pages/book-edit-by-id";
+import MenusPage from "./pages/menus"
 import { ModalsProvider } from "@mantine/modals";
 import BookCreatePage from "./pages/book-create";
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/books/:bookId/edit",
     element: <BookEditById />,
+  },
+  {
+    path: "/menu/",
+    element: <MenusPage />,
   },
 ]);
 
