@@ -1,6 +1,3 @@
-import logging
-
-logger = logging.getLogger("uvicorn.error")
 from dotenv import load_dotenv
 load_dotenv()
 
