@@ -1,8 +1,9 @@
-import Layout from "../components/layout";
-import cafeBackgroundImage from "../assets/images/bg-cafe-1.jpg";
-import ajPanwitImage from "../assets/images/aj-panwit.jpg";
-import coffeeImage from "../assets/images/coffee-1.jpg";
-import myimg from "../assets/images/myimg.jpg";
+import React from 'react';
+import Layout from './Layout';
+import cafeBackgroundImage from './path/to/cafeBackgroundImage.jpg';
+import ajPanwitImage from './path/to/ajPanwitImage.jpg';
+import myimg from './path/to/myimg.jpg';
+import coffeeImage from './path/to/coffeeImage.jpg';
 
 export default function HomePage() {
   return (
@@ -33,15 +34,18 @@ export default function HomePage() {
           </div>
         </div>
         
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <div>
-              <img src={myimg} alt="65070155 Pichaya Phatcharoen" className="h-full w-full object-cover" />
+            <img src={myimg} alt="65070155 Pichaya Phatcharoen" className="h-full w-full object-cover" />
           </div>
           <p className="text-right mt-8">
             ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ 
-            {" นางสาวพิชญา พัฒน์เจริญ รหัสนักศึกษา 65070155 "}
-            ซึ่งมีบริการต่าง ๆ ไม่ว่าจะเป็นบริการสั่งเครื่องดื่มในระหว่างเลือกดูข้อมูลหนังสือของคุณ เพื่อให้คุณสามารถ enjoy กับการอ่านได้อย่างเต็มที่
+            {" นางสาวพิชญา พัฒน์เจริญ รหัสนักศึกษา 65070155 "} นักศึกษาชั้นปีที่ 3 สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 
+            โดยร้านของเรามีบริการต่าง ๆ ไม่ว่าจะเป็นบริการสั่งเครื่องดื่มในระหว่างเลือกดูข้อมูลหนังสือของคุณ เพื่อให้คุณสามารถ enjoy กับการอ่านได้อย่างเต็มที่
           </p>
+        </div>
+        <div className="w-full">
+          <p className="text-right">สามารถติดต่อได้ทาง EMAIL : 65070155@kmitl.ac.th</p>
         </div>
       </section>
 
