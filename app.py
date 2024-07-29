@@ -38,11 +38,11 @@ app.add_middleware(
 async def get_books(db: Session = Depends(get_db)):
     return db.query(models.Book).all()
 
-@router_v1.get('/books/{book_id}')
+@router_v1.get('/book/{book_id}')
 async def get_book(book_id: int, db: Session = Depends(get_db)):
     return db.query(models.Book).filter(models.Book.id == book_id).first()
 
-@router_v1.post('/books')
+@router_v1.post('/book')
 async def create_book(book: dict, response: Response, db: Session = Depends(get_db)):
     try:
         newbook = models.Book(
@@ -67,7 +67,7 @@ async def create_book(book: dict, response: Response, db: Session = Depends(get_
         response.status_code = 500
         return {"error": "Internal Server Error"}
 
-@router_v1.patch('/books/{book_id}')
+@router_v1.patch('/book/{book_id}')
 async def update_book(book_id: int, book: dict, response: Response, db: Session = Depends(get_db)):
     currentbook = db.query(models.Book).filter(models.Book.id == book_id).first()
     if currentbook:
@@ -91,7 +91,7 @@ async def update_book(book_id: int, book: dict, response: Response, db: Session 
         response.status_code = 404
         return {'message': 'book not found'}
 
-@router_v1.delete('/books/{book_id}')
+@router_v1.delete('/book/{book_id}')
 async def delete_book(book_id: int, db: Session = Depends(get_db)):
     book = db.query(models.Book).filter(models.Book.id == book_id).first()
     db.delete(book)
