@@ -23,7 +23,7 @@ def get_db():
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://2024-iot-lab2-65070155-ceft.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
