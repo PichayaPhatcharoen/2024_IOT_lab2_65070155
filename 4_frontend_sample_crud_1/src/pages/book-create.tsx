@@ -20,10 +20,10 @@ export default function BookCreatePage() {
       description : "",
       prologue : "",
       is_published: false,
-      type1 : "null",
-      type2 : "null",
-      type3 : "null",
-      type4 : "null"
+      type1 : "",
+      type2 : "",
+      type3 : "",
+      type4 : ""
     },
 
     validate: {
