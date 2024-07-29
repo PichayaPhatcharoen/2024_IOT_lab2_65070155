@@ -2,6 +2,7 @@ import Layout from "../components/layout";
 import cafeBackgroundImage from "../assets/images/bg-cafe-1.jpg";
 import ajPanwitImage from "../assets/images/aj-panwit.jpg";
 import coffeeImage from "../assets/images/coffee-1.jpg";
+import myimg from "../assets/images/myimg.jpg";
 
 export default function HomePage() {
   return (
@@ -31,11 +32,17 @@ export default function HomePage() {
             <img src={ajPanwitImage} alt="Panwit Tuwanut" className="h-full w-full object-cover" />
           </div>
         </div>
-        <p className="text-right mt-8">
-          ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ ....
-          {"นางสาวพิชญา พัฒน์เจริญ รหัสนักศึกษา 65070155"}
-          ซึ่งมีบริการต่าง ๆ ไม่ว่าจะเป็นบริการสั่งเครื่องดื่มในระหว่างเลือกดูข้อมูลหนังสือของคุณ เพื่อให้คุณสามารถ enjoy กับการอ่านได้อย่างเต็มที่
-        </p>
+        
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+              <img src={myimg} alt="65070155 Pichaya Phatcharoen" className="h-full w-full object-cover" />
+          </div>
+          <p className="text-right mt-8">
+            ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ 
+            {" นางสาวพิชญา พัฒน์เจริญ รหัสนักศึกษา 65070155 "}
+            ซึ่งมีบริการต่าง ๆ ไม่ว่าจะเป็นบริการสั่งเครื่องดื่มในระหว่างเลือกดูข้อมูลหนังสือของคุณ เพื่อให้คุณสามารถ enjoy กับการอ่านได้อย่างเต็มที่
+          </p>
+        </div>
       </section>
 
       <section className="w-full flex justify-center">
