@@ -24,6 +24,8 @@ export default function BookCreatePage() {
       title: isNotEmpty("กรุณาระบุชื่อหนังสือ"),
       author: isNotEmpty("กรุณาระบุชื่อผู้แต่ง"),
       year: isNotEmpty("กรุณาระบุปีที่พิมพ์หนังสือ"),
+      description: isNotEmpty("กรุณาระบุรายละเอียดหนังสือ"),
+      prologue: isNotEmpty("กรุณาระบุเรื่องย่อหนังสือ"),
     },
   });
 
@@ -91,9 +93,41 @@ export default function BookCreatePage() {
               {...bookCreateForm.getInputProps("year")}
             />
 
-            {/* TODO: เพิ่มรายละเอียดหนังสือ */}
-            {/* TODO: เพิ่มเรื่องย่อ */}
-            {/* TODO: เพิ่มหมวดหมู่(s) */}
+            <TextInput
+              label="รายละเอียดหนังสือ"
+              placeholder="รายละเอียดหนังสือ"
+              {...bookEditForm.getInputProps("description")}
+            />
+
+            <TextInput
+              label="เรื่องย่อหนังสือ"
+              placeholder="เรื่องย่อหนังสือ"
+              {...bookEditForm.getInputProps("prologue")}
+            />
+
+            <TextInput
+              label="ประเภทหนังสือ1"
+              placeholder="ประเภทหนังสือ1"
+              {...bookEditForm.getInputProps("type1")}
+            />
+
+            <TextInput
+              label="ประเภทหนังสือ2"
+              placeholder="ประเภทหนังสือ2"
+              {...bookEditForm.getInputProps("type2")}
+            />
+            
+            <TextInput
+              label="ประเภทหนังสือ3"
+              placeholder="ประเภทหนังสือ3"
+              {...bookEditForm.getInputProps("type3")}
+            />
+            
+            <TextInput
+              label="ประเภทหนังสือ4"
+              placeholder="ประเภทหนังสือ4"
+              {...bookEditForm.getInputProps("type4")}
+            />
 
             <Checkbox
               label="เผยแพร่"

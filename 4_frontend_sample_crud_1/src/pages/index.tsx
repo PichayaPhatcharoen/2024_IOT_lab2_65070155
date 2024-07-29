@@ -33,12 +33,8 @@ export default function HomePage() {
         </div>
         <p className="text-right mt-8">
           ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ ....
-          {/* TODO: ชื่อของตนเอง, รหัสประจำตัวนักศึกษา และแนะนำคาเฟ่นี้ต่ออีกสักหน่อย + ใส่รูปของตนเอง (ไม่จำเป็นหากไม่สะดวกใจใส่รูป) */}
-          ซึ่งมีบริการ... Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          placeat sit ea sapiente officia sunt cumque impedit, reiciendis quis eius asperiores!
-          Minus, mollitia? Vitae inventore odio quod ducimus similique, expedita sequi, reiciendis
-          rem recusandae impedit voluptatibus quo veritatis ut quis et suscipit? Eligendi, neque!
-          Earum quaerat unde similique totam. Pariatur!
+          {"นางสาวพิชญา พัฒน์เจริญ รหัสนักศึกษา 65070155"}
+          ซึ่งมีบริการต่าง ๆ ไม่ว่าจะเป็นบริการสั่งเครื่องดื่มในระหว่างเลือกดูข้อมูลหนังสือของคุณ เพื่อให้คุณสามารถ enjoy กับการอ่านได้อย่างเต็มที่
         </p>
       </section>
 

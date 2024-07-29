@@ -41,8 +41,7 @@ async def get_book(book_id: int, db: Session = Depends(get_db)):
 
 @router_v1.post('/books')
 async def create_book(book: dict, response: Response, db: Session = Depends(get_db)):
-    # TODO: Add validation
-    newbook = models.Book(title=book['title'], author=book['author'], year=book['year'], is_published=book['is_published'])
+    newbook = models.Book(title=book['title'], author=book['author'], year = book['year'], is_published=book['is_published'],description=book['description'],prologue=book['prologue'],type1 = book['type1'],type2 = book['type2'],type3 = book['type3'],type4 = book['type4'] )
     db.add(newbook)
     db.commit()
     db.refresh(newbook)
@@ -57,6 +56,12 @@ async def update_book(book_id: int, book: dict, response: Response, db: Session 
         currentbook.title = book['title']
         currentbook.author = book['author']
         currentbook.year = book['year']
+        currentbook.description = book['description']
+        currentbook.prologue = book['prologue']
+        currentbook.type1 = book['type1']
+        currentbook.type2 = book['type2']
+        currentbook.type3 = book['type3']
+        currentbook.type4 = book['type4']
         currentbook.is_published = book['is_published']
         
         db.commit()
