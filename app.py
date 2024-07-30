@@ -1,13 +1,13 @@
-from dotenv import load_dotenv
-load_dotenv()
-
-from fastapi import FastAPI, Depends, Response, APIRouter
+from fastapi import FastAPI, Depends, Response, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from dotenv import load_dotenv
 
 # Import models
-from database import SessionLocal, engine
 import models
+from database import SessionLocal, engine
+
+load_dotenv()
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -29,9 +29,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# https://fastapi.tiangolo.com/tutorial/sql-databases/#crud-utils
-
-#=====book=======
 @router_v1.get('/books')
 async def get_books(db: Session = Depends(get_db)):
     return db.query(models.Book).all()
@@ -42,30 +39,28 @@ async def get_book(book_id: int, db: Session = Depends(get_db)):
 
 @router_v1.post('/books')
 async def create_book(book: dict, response: Response, db: Session = Depends(get_db)):
-        newbook = models.Book(
-            title=book['title'], 
-            author=book['author'], 
-            year=book['year'], 
-            is_published=book['is_published'],
-            description=book['description'], 
-            prologue=book['prologue'], 
-            type1=book['type1'],
-            type2=book['type2'], 
-            type3=book['type3'], 
-            type4=book['type4']
-        )
-        db.add(newbook)
-        db.commit()
-        db.refresh(newbook)
-        response.status_code = 201
-        return newbook
-
+    newbook = models.Book(
+        title=book['title'], 
+        author=book['author'], 
+        year=book['year'], 
+        is_published=book['is_published'],
+        description=book['description'], 
+        prologue=book['prologue'], 
+        type1=book['type1'],
+        type2=book['type2'], 
+        type3=book['type3'], 
+        type4=book['type4']
+    )
+    db.add(newbook)
+    db.commit()
+    db.refresh(newbook)
+    response.status_code = 201
+    return newbook
 
 @router_v1.patch('/books/{book_id}')
 async def update_book(book_id: int, book: dict, response: Response, db: Session = Depends(get_db)):
     currentbook = db.query(models.Book).filter(models.Book.id == book_id).first()
     if currentbook:
-        currentbook.id = book['id']
         currentbook.title = book['title']
         currentbook.author = book['author']
         currentbook.year = book['year']
@@ -91,8 +86,7 @@ async def delete_book(book_id: int, db: Session = Depends(get_db)):
     db.delete(book)
     db.commit()
 
-#=====menu=======
-
+# Menu CRUD operations
 @router_v1.get('/menus')
 async def get_menus(db: Session = Depends(get_db)):
     return db.query(models.Menu).all()
@@ -136,7 +130,7 @@ async def delete_menu(menu_id: int, db: Session = Depends(get_db)):
     db.delete(menu)
     db.commit()
 
-#=====customer_order=======
+# CustomerOrder CRUD operations
 @router_v1.get('/customer_orders')
 async def get_customer_orders(db: Session = Depends(get_db)):
     return db.query(models.CustomerOrder).all()
@@ -147,11 +141,18 @@ async def get_customer_order(order_id: int, db: Session = Depends(get_db)):
 
 @router_v1.post('/customer_orders')
 async def create_customer_order(customer_order: dict, response: Response, db: Session = Depends(get_db)):
+    menu = db.query(models.Menu).filter(models.Menu.name == customer_order['menu_name']).first()
+    if not menu:
+        response.status_code = 404
+        return {'message': 'menu not found'}
+    
+    total_price = menu.price * customer_order['quantity']
+    
     neworder = models.CustomerOrder(
         customer_name=customer_order['customer_name'], 
         order_note=customer_order['order_note'], 
         quantity=customer_order['quantity'], 
-        total_price=customer_order['total_price'],
+        total_price=total_price,
         menu_name=customer_order['menu_name']
     )
     db.add(neworder)
@@ -163,27 +164,36 @@ async def create_customer_order(customer_order: dict, response: Response, db: Se
 @router_v1.patch('/customer_orders/{order_id}')
 async def update_customer_order(order_id: int, customer_order: dict, response: Response, db: Session = Depends(get_db)):
     currentorder = db.query(models.CustomerOrder).filter(models.CustomerOrder.order_id == order_id).first()
-    if currentorder:
-        currentorder.customer_name = customer_order['customer_name']
-        currentorder.order_note = customer_order['order_note']
-        currentorder.quantity = customer_order['quantity']
-        currentorder.total_price = customer_order['total_price']
-        currentorder.menu_name = customer_order['menu_name']
-        db.commit()
-        db.refresh(currentorder)
-        response.status_code = 202
-        return currentorder
-    else:
+    if not currentorder:
         response.status_code = 404
         return {'message': 'order not found'}
+    
+    menu = db.query(models.Menu).filter(models.Menu.name == customer_order['menu_name']).first()
+    if not menu:
+        response.status_code = 404
+        return {'message': 'menu not found'}
+    
+    total_price = menu.price * customer_order['quantity']
+    
+    currentorder.customer_name = customer_order['customer_name']
+    currentorder.order_note = customer_order['order_note']
+    currentorder.quantity = customer_order['quantity']
+    currentorder.total_price = total_price
+    currentorder.menu_name = customer_order['menu_name']
+    
+    db.commit()
+    db.refresh(currentorder)
+    response.status_code = 202
+    return currentorder
 
 @router_v1.delete('/customer_orders/{order_id}')
-async def delete_customer_order(order_id: int, db: Session = Depends(get_db)):
+async def delete_customer_order(order_id: int, response: Response, db: Session = Depends(get_db)):
     order = db.query(models.CustomerOrder).filter(models.CustomerOrder.order_id == order_id).first()
+    if not order:
+        response.status_code = 404
+        return {'message': 'order not found'}
     db.delete(order)
     db.commit()
-
-app.include_router(router_v1)
 
 app.include_router(router_v1)
 
