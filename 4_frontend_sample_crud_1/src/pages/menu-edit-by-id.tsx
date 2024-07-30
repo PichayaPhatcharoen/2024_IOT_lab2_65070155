@@ -17,7 +17,6 @@ export default function MenuEditPage() {
       name: "",
       price: 50,
       description: "",
-      is_available: false,
     },
     validate: {
       name: isNotEmpty("กรุณาระบุชื่อเมนู"),
@@ -34,7 +33,6 @@ export default function MenuEditPage() {
           name: response.data.name,
           price: response.data.price,
           description: response.data.description,
-          is_available: response.data.is_available,
         });
       } catch (error) {
         notifications.show({
