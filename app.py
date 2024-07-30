@@ -86,7 +86,7 @@ async def delete_book(book_id: int, db: Session = Depends(get_db)):
     db.delete(book)
     db.commit()
 
-# Menu CRUD operations
+
 @router_v1.get('/menus')
 async def get_menus(db: Session = Depends(get_db)):
     return db.query(models.Menu).all()
@@ -130,7 +130,7 @@ async def delete_menu(menu_id: int, db: Session = Depends(get_db)):
     db.delete(menu)
     db.commit()
 
-# CustomerOrder CRUD operations
+
 @router_v1.get('/customer_orders')
 async def get_customer_orders(db: Session = Depends(get_db)):
     return db.query(models.CustomerOrder).all()

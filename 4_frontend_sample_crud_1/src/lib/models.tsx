@@ -18,3 +18,12 @@ export interface Menu {
   price: number;
   description: string;
 }
+
+export interface CustomerOrder {
+  order_id: number;
+  menu_name: string;
+  customer_name: string;
+  order_note: string;
+  quantity: number;
+  total_price: number;
+}

@@ -82,8 +82,8 @@ export default function MenuPage() {
                             </div>
 
                             <div className="flex justify-end px-4 pb-2">
-                                <Button component={Link} to={`/menu/ordering/${menu.id}`} size="xs" variant="default">
-                                    สั่งเครื่องดื่ม
+                                <Button component={Link} to={`/menus/edit/${menu.id}`} size="xs" variant="default">
+                                    แก้ไขเมนู
                                 </Button>
                             </div>
                         </div>
