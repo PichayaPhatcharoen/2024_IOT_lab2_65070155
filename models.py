@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,Float
 # from sqlalchemy.orm import relationship
 
 from database import Base
@@ -23,7 +23,7 @@ class Menu(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
-    price = Column(float, index=True)
+    price = Column(Float, index=True)
     description = Column(String, index=True)
 
 class CustomerOrder(Base):
@@ -33,4 +33,4 @@ class CustomerOrder(Base):
     customer_name = Column(String, index=True)
     order_note = Column(String, index=True)
     quantity = Column(Integer, index=True)
-    total_price = Column(float, index=True)
+    total_price = Column(Float, index=True)
