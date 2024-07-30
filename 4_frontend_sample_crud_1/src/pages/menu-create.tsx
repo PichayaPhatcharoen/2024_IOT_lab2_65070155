@@ -5,7 +5,7 @@ import { isNotEmpty, useForm } from "@mantine/form";
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
-import { Menu } from "../lib/models";
+
 
 export default function MenuCreatePage() {
   const navigate = useNavigate();
@@ -26,43 +26,43 @@ export default function MenuCreatePage() {
     },
   });
 
-  const handleSubmit = async (values: typeof menuCreateForm.values) => {
-    try {
-      setIsProcessing(true);
-      await axios.post("/menus", values); // No need for the response if it's not used
-      notifications.show({
-        title: "เพิ่มข้อมูลเมนูสำเร็จ",
-        message: "ข้อมูลเมนูถูกเพิ่มเรียบร้อยแล้ว",
-        color: "teal",
-      });
-      navigate(`/menus`); // Redirect to the menu listing page
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        if (error.response?.status === 422) {
-          notifications.show({
-            title: "ข้อมูลไม่ถูกต้อง",
-            message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
-            color: "red",
-          });
-        } else if (error.response?.status >= 500) {
-          notifications.show({
-            title: "เกิดข้อผิดพลาดบางอย่าง",
-            message: "กรุณาลองใหม่อีกครั้ง",
-            color: "red",
-          });
-        }
-      } else {
+ const handleSubmit = async (values: typeof menuCreateForm.values) => {
+  try {
+    setIsProcessing(true);
+    await axios.post("/menus", values);
+    notifications.show({
+      title: "เพิ่มข้อมูลเมนูสำเร็จ",
+      message: "ข้อมูลเมนูถูกเพิ่มเรียบร้อยแล้ว",
+      color: "teal",
+    });
+    navigate(`/menus`);
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 422) {
+        notifications.show({
+          title: "ข้อมูลไม่ถูกต้อง",
+          message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
+          color: "red",
+        });
+      } else if (error.response?.status >= 500) {
         notifications.show({
           title: "เกิดข้อผิดพลาดบางอย่าง",
-          message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
+          message: "กรุณาลองใหม่อีกครั้ง",
           color: "red",
         });
       }
-    } finally {
-      setIsProcessing(false);
+    } else {
+      notifications.show({
+        title: "เกิดข้อผิดพลาดบางอย่าง",
+        message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
+        color: "red",
+      });
     }
-  };
-  
+  } finally {
+    setIsProcessing(false);
+  }
+};
+
 
   return (
     <>
