@@ -29,12 +29,13 @@ export default function MenuCreatePage() {
   const handleSubmit = async (values: typeof menuCreateForm.values) => {
     try {
       setIsProcessing(true);
+      await axios.post("/menus", values); // No need for the response if it's not used
       notifications.show({
         title: "เพิ่มข้อมูลเมนูสำเร็จ",
         message: "ข้อมูลเมนูถูกเพิ่มเรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/menus/`);
+      navigate(`/menus`); // Redirect to the menu listing page
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 422) {
@@ -43,7 +44,7 @@ export default function MenuCreatePage() {
             message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
             color: "red",
           });
-        } else if (error.response?.status || 500 >= 500) {
+        } else if (error.response?.status >= 500) {
           notifications.show({
             title: "เกิดข้อผิดพลาดบางอย่าง",
             message: "กรุณาลองใหม่อีกครั้ง",
@@ -61,6 +62,7 @@ export default function MenuCreatePage() {
       setIsProcessing(false);
     }
   };
+  
 
   return (
     <>
