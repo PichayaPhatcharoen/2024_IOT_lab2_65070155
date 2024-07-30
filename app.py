@@ -156,7 +156,6 @@ async def create_customer_order(customer_order: dict, response: Response, db: Se
     db.add(neworder)
     db.commit()
     db.refresh(neworder)
-    
     response.status_code = 201
     return neworder
 

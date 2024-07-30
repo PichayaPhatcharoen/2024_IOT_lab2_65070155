@@ -18,11 +18,10 @@ export default function MenuEditById() {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const { data: menu, isLoading, error } = useSWR<Menu>(`/menus/${menuId}`, fetchMenu);
-
   const orderEditForm = useForm({
     initialValues: {
       customer_name: "",
-      menu_name: "",
+      menu_name: "", 
       quantity: 1,
       total_price: 0,
       order_note: "",
@@ -32,7 +31,6 @@ export default function MenuEditById() {
       quantity: (value) => (value > 0 ? null : "กรุณาระบุจำนวนที่ถูกต้อง"),
     },
   });
-
   useEffect(() => {
     if (menu) {
       orderEditForm.setValues({
@@ -59,33 +57,25 @@ export default function MenuEditById() {
         message: "ได้รับออเดอร์เรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/menus`);
+      navigate(`/menus`); 
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.response) {
-          if (error.response.status === 404) {
-            notifications.show({
-              title: "ไม่พบข้อมูลเมนู",
-              message: "ไม่พบข้อมูลเมนูที่ต้องการสั่ง",
-              color: "red",
-            });
-          } else if (error.response.status === 422) {
-            notifications.show({
-              title: "ข้อมูลไม่ถูกต้อง",
-              message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
-              color: "red",
-            });
-          } else if (error.response.status >= 500) {
-            notifications.show({
-              title: "เกิดข้อผิดพลาดบางอย่าง",
-              message: "กรุณาลองใหม่อีกครั้ง",
-              color: "red",
-            });
-          }
-        } else {
+        if (error.response?.status === 404) {
+          notifications.show({
+            title: "ไม่พบข้อมูลเมนู",
+            message: "ไม่พบข้อมูลเมนูที่ต้องการสั่ง",
+            color: "red",
+          });
+        } else if (error.response?.status === 422) {
+          notifications.show({
+            title: "ข้อมูลไม่ถูกต้อง",
+            message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
+            color: "red",
+          });
+        } else if (error.response?.status >= 500) {
           notifications.show({
             title: "เกิดข้อผิดพลาดบางอย่าง",
-            message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
+            message: "กรุณาลองใหม่อีกครั้ง",
             color: "red",
           });
         }
