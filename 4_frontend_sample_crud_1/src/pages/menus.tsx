@@ -27,7 +27,7 @@ export default function MenuPage() {
                 <div className="flex justify-between">
                     <h1>รายการเมนูเครื่องดื่ม</h1>
 
-                    <div className="grid-cols-3 mx-8">
+                    <div className="grid grid-cols-3 mr-5">
                         <Button component={Link}
                             leftSection={<IconPlus />}
                             to="/menus/create"
