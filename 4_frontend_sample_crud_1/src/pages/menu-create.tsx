@@ -8,23 +8,19 @@ import { notifications } from "@mantine/notifications";
 
 export default function MenuCreatePage() {
   const navigate = useNavigate();
-
   const [isProcessing, setIsProcessing] = useState(false);
-
   const menuCreateForm = useForm({
     initialValues: {
       name: "",
       price: 0,
       description: "",
     },
-
     validate: {
       name: isNotEmpty("กรุณาระบุชื่อเมนู"),
       price: (value) => (value > 0 ? null : "กรุณาระบุราคาที่ถูกต้อง"),
       description: isNotEmpty("กรุณาระบุรายละเอียดเมนู"),
     },
   });
-
   const handleSubmit = async (values: typeof menuCreateForm.values) => {
     try {
       setIsProcessing(true);
@@ -39,7 +35,6 @@ export default function MenuCreatePage() {
       setIsProcessing(false);
     }
   };
-
   return (
     <>
       <Layout>

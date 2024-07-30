@@ -14,10 +14,7 @@ import { modals } from "@mantine/modals";
 export default function MenuEditById() {
   const { menuId } = useParams();
   const navigate = useNavigate();
-  
   const [isProcessing, setIsProcessing] = useState(false);
-
-
   const { data: menu, isLoading, error } = useSWR<Menu>(`/menus/${menuId}`);
   const [isSetInitialValues, setIsSetInitialValues] = useState(false);
 

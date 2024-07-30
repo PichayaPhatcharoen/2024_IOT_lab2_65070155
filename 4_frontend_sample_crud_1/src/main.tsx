@@ -18,6 +18,7 @@ import BookCreatePage from "./pages/book-create";
 import MenuEditPagebyid from "./pages/menu-edit-by-id";
 import MenuEditPage from "./pages/menus-editpage";
 import MenuCreatePage from "./pages/menu-create";
+import MenuOrdering from "./pages/menus-odering";
 
 const theme = createTheme({
   primaryColor: "orange",
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/menus/create",
     element: <MenuCreatePage />,
+  },
+  {
+    path: "/menu/ordering/:menuId",
+    element: <MenuOrdering />,
   },
 ]);
 
