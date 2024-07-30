@@ -3,9 +3,8 @@ import Layout from "../components/layout";
 import { Button, Container, Divider, NumberInput, TextInput, Textarea } from "@mantine/core";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { useState } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { notifications } from "@mantine/notifications";
-
 
 export default function MenuCreatePage() {
   const navigate = useNavigate();
@@ -26,43 +25,20 @@ export default function MenuCreatePage() {
     },
   });
 
- const handleSubmit = async (values: typeof menuCreateForm.values) => {
-  try {
-    setIsProcessing(true);
-    await axios.post("/menus", values);
-    notifications.show({
-      title: "เพิ่มข้อมูลเมนูสำเร็จ",
-      message: "ข้อมูลเมนูถูกเพิ่มเรียบร้อยแล้ว",
-      color: "teal",
-    });
-    navigate(`/menus`);
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      if (error.response?.status === 422) {
-        notifications.show({
-          title: "ข้อมูลไม่ถูกต้อง",
-          message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
-          color: "red",
-        });
-      } else if (error.response?.status >= 500) {
-        notifications.show({
-          title: "เกิดข้อผิดพลาดบางอย่าง",
-          message: "กรุณาลองใหม่อีกครั้ง",
-          color: "red",
-        });
-      }
-    } else {
+  const handleSubmit = async (values: typeof menuCreateForm.values) => {
+    try {
+      setIsProcessing(true);
+      await axios.post("/menus", values);
       notifications.show({
-        title: "เกิดข้อผิดพลาดบางอย่าง",
-        message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
-        color: "red",
+        title: "เพิ่มข้อมูลเมนูสำเร็จ",
+        message: "ข้อมูลเมนูถูกเพิ่มเรียบร้อยแล้ว",
+        color: "teal",
       });
+      navigate(`/menus`);
+    } finally {
+      setIsProcessing(false);
     }
-  } finally {
-    setIsProcessing(false);
-  }
-};
-
+  };
 
   return (
     <>
