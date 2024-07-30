@@ -141,23 +141,22 @@ async def get_customer_order(order_id: int, db: Session = Depends(get_db)):
 
 @router_v1.post('/customer_orders')
 async def create_customer_order(customer_order: dict, response: Response, db: Session = Depends(get_db)):
+
     menu = db.query(models.Menu).filter(models.Menu.name == customer_order['menu_name']).first()
     if not menu:
         response.status_code = 404
         return {'message': 'menu not found'}
-    
-    total_price = menu.price * customer_order['quantity']
-    
     neworder = models.CustomerOrder(
-        customer_name=customer_order['customer_name'], 
-        order_note=customer_order['order_note'], 
-        quantity=customer_order['quantity'], 
-        total_price=total_price,
-        menu_name=customer_order['menu_name']
+        customer_name=customer_order['customer_name'],
+        order_note=customer_order['order_note'],
+        menu_name=customer_order['menu_name'],
+        quantity=customer_order['quantity'],
+        total_price=customer_order['total_price'],
     )
     db.add(neworder)
     db.commit()
     db.refresh(neworder)
+    
     response.status_code = 201
     return neworder
 
