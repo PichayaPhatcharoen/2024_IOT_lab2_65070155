@@ -51,31 +51,39 @@ export default function MenuEditById() {
         quantity: values.quantity,
         total_price: values.total_price,
       });
-
+  
       notifications.show({
         title: "สั่งเครื่องดื่มสำเร็จ",
         message: "ได้รับออเดอร์เรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/menus`); 
+      navigate(`/menus`);
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.response?.status === 404) {
+        const status = error.response?.status;
+  
+        if (status === 404) {
           notifications.show({
             title: "ไม่พบข้อมูลเมนู",
             message: "ไม่พบข้อมูลเมนูที่ต้องการสั่ง",
             color: "red",
           });
-        } else if (error.response?.status === 422) {
+        } else if (status === 422) {
           notifications.show({
             title: "ข้อมูลไม่ถูกต้อง",
             message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
             color: "red",
           });
-        } else if (error.response?.status >= 500) {
+        } else if (status && status >= 500) {
           notifications.show({
             title: "เกิดข้อผิดพลาดบางอย่าง",
             message: "กรุณาลองใหม่อีกครั้ง",
+            color: "red",
+          });
+        } else {
+          notifications.show({
+            title: "เกิดข้อผิดพลาดบางอย่าง",
+            message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
             color: "red",
           });
         }
