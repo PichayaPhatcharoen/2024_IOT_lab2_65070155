@@ -32,7 +32,7 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
 
               <Link
-                to={"/menu"}
+                to={"/menus"}
                 className="flex items-center h-14 px-1 no-underline text-neutral-600 font-semibold text-sm"
               >
                 เมนู
