@@ -62,7 +62,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/menu/ordering/:menuId",
-    element: <MenuOrdering />,
+    element: <MenuOrdering />, 
   },
 ]);
 
