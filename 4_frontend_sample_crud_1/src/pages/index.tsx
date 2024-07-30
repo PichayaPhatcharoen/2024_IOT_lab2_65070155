@@ -34,7 +34,7 @@ export default function HomePage() {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <img src={myimg} alt="65070155 Pichaya Phatcharoen" className="w-16 md:w-32 lg:w-48 object-cover" />
+          <img src={myimg} alt="65070155 Pichaya Phatcharoen" className="w-32 md:w-52 lg:w-64 object-cover" />
         </div>
         <p className="text-right mt-8">
           ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ 

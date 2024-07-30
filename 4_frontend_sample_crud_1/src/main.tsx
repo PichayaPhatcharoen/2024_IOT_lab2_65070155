@@ -43,7 +43,7 @@ const router = createBrowserRouter([
     element: <BookEditById />,
   },
   {
-    path: "/menu/",
+    path: "/menus/",
     element: <MenusPage />,
   },
 ]);
