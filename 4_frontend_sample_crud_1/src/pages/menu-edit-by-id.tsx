@@ -46,7 +46,7 @@ export default function MenuEditById() {
         message: "ข้อมูลเมนูได้รับการแก้ไขเรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/menus`);
+      navigate(`/menus/edit`);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
@@ -90,7 +90,7 @@ export default function MenuEditById() {
         message: "ลบเมนูนี้ออกจากระบบเรียบร้อยแล้ว",
         color: "red",
       });
-      navigate("/menus");
+      navigate("/menus/edit");
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
