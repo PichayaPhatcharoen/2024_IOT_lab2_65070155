@@ -30,6 +30,7 @@ class CustomerOrder(Base):
     __tablename__ = 'customer_orders'
 
     order_id = Column(Integer, primary_key=True, index=True)
+    menu_name = Column(String, index=True)
     customer_name = Column(String, index=True)
     order_note = Column(String, index=True)
     quantity = Column(Integer, index=True)

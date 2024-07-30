@@ -149,6 +149,7 @@ async def get_customer_order(order_id: int, db: Session = Depends(get_db)):
 async def create_customer_order(customer_order: dict, response: Response, db: Session = Depends(get_db)):
     neworder = models.CustomerOrder(
         customer_name=customer_order['customer_name'], 
+        menu_name=customer_order['menu_name'], 
         order_note=customer_order['order_note'], 
         quantity=customer_order['quantity'], 
         total_price=customer_order['total_price']
@@ -164,6 +165,7 @@ async def update_customer_order(order_id: int, customer_order: dict, response: R
     currentorder = db.query(models.CustomerOrder).filter(models.CustomerOrder.order_id == order_id).first()
     if currentorder:
         currentorder.customer_name = customer_order['customer_name']
+        currentorder.menu_name = customer_order['menu_name'], 
         currentorder.order_note = customer_order['order_note']
         currentorder.quantity = customer_order['quantity']
         currentorder.total_price = customer_order['total_price']
