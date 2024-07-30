@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
 
-
 const fetchMenu = (url: string) => axios.get<Menu>(url).then(res => res.data);
 
 export default function MenuEditById() {
@@ -19,7 +18,6 @@ export default function MenuEditById() {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const { data: menu, isLoading, error } = useSWR<Menu>(`/menus/${menuId}`, fetchMenu);
-
 
   const orderEditForm = useForm({
     initialValues: {
@@ -35,7 +33,6 @@ export default function MenuEditById() {
     },
   });
 
-
   useEffect(() => {
     if (menu) {
       orderEditForm.setValues({
@@ -45,7 +42,6 @@ export default function MenuEditById() {
       });
     }
   }, [menu, orderEditForm.values.quantity]);
-
 
   const handleSubmit = async (values: typeof orderEditForm.values) => {
     try {
@@ -66,22 +62,30 @@ export default function MenuEditById() {
       navigate(`/menus`);
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.response?.status === 404) {
-          notifications.show({
-            title: "ไม่พบข้อมูลเมนู",
-            message: "ไม่พบข้อมูลเมนูที่ต้องการสั่ง",
-            color: "red",
-          });
-        } else if (error.response?.status === 422) {
-          notifications.show({
-            title: "ข้อมูลไม่ถูกต้อง",
-            message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
-            color: "red",
-          });
-        } else if (error.response?.status >= 500) {
+        if (error.response) {
+          if (error.response.status === 404) {
+            notifications.show({
+              title: "ไม่พบข้อมูลเมนู",
+              message: "ไม่พบข้อมูลเมนูที่ต้องการสั่ง",
+              color: "red",
+            });
+          } else if (error.response.status === 422) {
+            notifications.show({
+              title: "ข้อมูลไม่ถูกต้อง",
+              message: "กรุณาตรวจสอบข้อมูลที่กรอกใหม่อีกครั้ง",
+              color: "red",
+            });
+          } else if (error.response.status >= 500) {
+            notifications.show({
+              title: "เกิดข้อผิดพลาดบางอย่าง",
+              message: "กรุณาลองใหม่อีกครั้ง",
+              color: "red",
+            });
+          }
+        } else {
           notifications.show({
             title: "เกิดข้อผิดพลาดบางอย่าง",
-            message: "กรุณาลองใหม่อีกครั้ง",
+            message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
             color: "red",
           });
         }
