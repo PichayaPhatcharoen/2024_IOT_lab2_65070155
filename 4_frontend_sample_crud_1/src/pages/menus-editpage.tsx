@@ -38,12 +38,12 @@ export default function MenuPage() {
                             เพิ่มเมนู
                         </Button>
                         <Button component={Link}
-                            to="/menus/edit"
+                            to="/menus/"
                             size="xs"
                             variant="primary"
                             className="flex items-center space-x-2"
                         >
-                            แก้ไขเมนู
+                            สั่งเครื่องดื่ม
                         </Button>
                         <Button component={Link}
                             to="/cus_orders"
