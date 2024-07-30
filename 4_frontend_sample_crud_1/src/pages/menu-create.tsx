@@ -34,6 +34,7 @@ export default function MenuCreatePage() {
         title: "เพิ่มข้อมูลเมนูสำเร็จ",
         message: "ข้อมูลเมนูถูกเพิ่มเรียบร้อยแล้ว",
         color: "teal",
+        navigate(`/menus`);
       });
       navigate(`/menus/${response.data.id}`);
     } catch (error) {
