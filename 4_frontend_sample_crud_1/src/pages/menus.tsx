@@ -46,7 +46,7 @@ export default function MenuPage() {
                             แก้ไขเมนู
                         </Button>
                         <Button component={Link}
-                            to="/menu/cus_order"
+                            to="/menus/cus_orders"
                             size="xs"
                             variant="primary"
                             className="flex items-center space-x-2"

@@ -52,7 +52,7 @@ export default function OrderPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map((order) => (
+                            {/* {orders.map((order) => ( */}
                                 <tr key={order.order_id}>
                                     <td>{order.order_id}</td>
                                     <td>{order.customer_name}</td>
@@ -63,7 +63,7 @@ export default function OrderPage() {
                                         <button>ลบ</button>
                                     </td>
                                 </tr>
-                            ))}
+                            {/* ))} */}
                         </tbody>
                     </table>
                 </div>
