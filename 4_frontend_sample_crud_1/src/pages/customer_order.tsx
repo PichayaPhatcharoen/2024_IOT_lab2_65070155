@@ -25,7 +25,7 @@ export default function OrderPage() {
                     title="เกิดข้อผิดพลาดในการอ่านข้อมูล"
                     icon={<IconAlertTriangleFilled />}
                 >
-                    {error.message}
+                    {(error as Error).message}
                 </Alert>
             </Layout>
         );
@@ -48,7 +48,7 @@ export default function OrderPage() {
                 if (response.ok) {
                     showNotification({
                         title: 'สำเร็จ',
-                        message: 'ลบรายการไม่สำเร็จ',
+                        message: 'ลบรายการสำเร็จ',
                         color: 'green',
                     });
                     mutate('/customer_orders');
@@ -57,8 +57,8 @@ export default function OrderPage() {
                 }
             } catch (error) {
                 showNotification({
-                    title: 'Error',
-                    message: error.message,
+                    title: 'ข้อผิดพลาด',
+                    message: (error as Error).message || 'เกิดข้อผิดพลาดไม่คาดคิด',
                     color: 'red',
                 });
             } finally {
