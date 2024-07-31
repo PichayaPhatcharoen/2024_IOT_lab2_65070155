@@ -4,7 +4,7 @@ import useSWR, { mutate } from "swr";
 import { CustomerOrder } from "../lib/models";
 import Loading from "../components/loading";
 import { Alert, Button, Modal,} from "@mantine/core";
-import { IconAlertTriangleFilled, IconTrash } from "@tabler/icons-react";
+import { IconAlertTriangleFilled} from "@tabler/icons-react";
 import { useState } from "react";
 import { showNotification } from "@mantine/notifications";
 
@@ -111,8 +111,7 @@ export default function OrderPage() {
                                             radius="md"
                                             className="flex items-center"
                                         >
-                                            <IconTrash size={16} />
-                                            <span className="ml-2">ลบ</span>
+                                            <span className="">ลบ</span>
                                         </Button>
                                     </td>
                                 </tr>
