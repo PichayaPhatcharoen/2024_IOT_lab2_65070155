@@ -17,7 +17,7 @@ export default function MenuEditById() {
   const { menuId } = useParams<{ menuId: string }>();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
-  const { data: menu, isLoading, error } = useSWR<Menu>(`/menus/${menuId}`, fetchMenu);
+  const { data: menu, isLoading, error } = useSWR<Menu>(`/api/v1/menus/${menuId}`, fetchMenu);
   const orderEditForm = useForm({
     initialValues: {
       customer_name: "",
