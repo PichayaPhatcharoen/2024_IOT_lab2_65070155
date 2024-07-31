@@ -4,10 +4,10 @@ import useSWR from "swr";
 import { CustomerOrder } from "../lib/models";
 import Loading from "../components/loading";
 import { Alert} from "@mantine/core";
-// import { IconAlertTriangleFilled } from "@tabler/icons-react";
+import { IconAlertTriangleFilled } from "@tabler/icons-react";
 // import { Link } from "react-router-dom";
 
-export default function MenuPage() {
+export default function OrderPage() {
     const { data: orders, error } = useSWR<CustomerOrder[]>("/customer_orders");
 
     if (!orders && !error) {
