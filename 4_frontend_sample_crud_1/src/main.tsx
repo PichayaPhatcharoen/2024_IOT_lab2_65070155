@@ -66,7 +66,7 @@ const router = createBrowserRouter([
     element: <MenuOrdering />, 
   },
   {
-    path: "/menus/cus_orders",
+    path: "/menus/cus_orders/",
     element: <CusOrder />, 
   },
 ]);
