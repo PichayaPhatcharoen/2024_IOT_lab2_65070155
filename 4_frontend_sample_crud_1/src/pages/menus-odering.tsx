@@ -57,7 +57,7 @@ export default function MenuEditById() {
         message: "ได้รับออเดอร์เรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/menus/ordering/:menuId`);
+      navigate(`/menus/`);
     } catch (error) {
       if (error instanceof AxiosError) {
         const status = error.response?.status;
@@ -118,6 +118,12 @@ export default function MenuEditById() {
               readOnly
             />
 
+            <Textarea
+              label="ชื่อลูกค้า"
+              placeholder="ชื่อของคุณ"
+              {...orderEditForm.getInputProps("customer_name")}
+            />
+            
             <NumberInput
               label="จำนวนแก้ว"
               placeholder="จำนวนแก้ว"
