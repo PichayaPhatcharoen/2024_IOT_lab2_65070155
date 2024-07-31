@@ -3,9 +3,8 @@ import cafeBackgroundImage from "../assets/images/bg-cafe-3.jpg";
 import useSWR from "swr";
 import { CustomerOrder } from "../lib/models";
 import Loading from "../components/loading";
-import { Alert} from "@mantine/core";
+import { Alert } from "@mantine/core";
 import { IconAlertTriangleFilled } from "@tabler/icons-react";
-// import { Link } from "react-router-dom";
 
 export default function OrderPage() {
     const { data: orders, error } = useSWR<CustomerOrder[]>("/customer_orders");
@@ -52,7 +51,7 @@ export default function OrderPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {orders.map((order) => ( */}
+                            {orders.map((order) => (
                                 <tr key={order.order_id}>
                                     <td>{order.order_id}</td>
                                     <td>{order.customer_name}</td>
@@ -63,7 +62,7 @@ export default function OrderPage() {
                                         <button>ลบ</button>
                                     </td>
                                 </tr>
-                            {/* ))} */}
+                            ))}
                         </tbody>
                     </table>
                 </div>
