@@ -46,7 +46,7 @@ export default function MenuPage() {
                             สั่งเครื่องดื่ม
                         </Button>
                         <Button component={Link}
-                            to="/cus_orders"
+                            to="/menus/cus_order"
                             size="xs"
                             variant="primary"
                             className="flex items-center space-x-2"
