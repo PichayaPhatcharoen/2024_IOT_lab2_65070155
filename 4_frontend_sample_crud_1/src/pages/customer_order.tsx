@@ -110,6 +110,7 @@ export default function OrderPage() {
                                             onClick={() => handleDeleteClick(order.order_id)}
                                             variant="outline"
                                             radius="md"
+                                            className="flex items-center"
                                         >
                                             <IconTrash size={16} />
                                             <span className="ml-2">ลบ</span>
@@ -128,14 +129,14 @@ export default function OrderPage() {
                 title="Confirm Deletion"
             >
                 <p>ต้องการลบรายการออเดอร์นี้หรือไม่?</p>
-                <Group mt="md" position="right">
-                    <Button variant="outline" onClick={() => setDeleteModalOpen(false)}>
+                <div className="flex justify-end mt-4">
+                    <Button variant="outline" onClick={() => setDeleteModalOpen(false)} className="mr-2">
                         Cancel
                     </Button>
                     <Button color="red" onClick={handleDelete}>
                         Delete
                     </Button>
-                </Group>
+                </div>
             </Modal>
         </Layout>
     );
