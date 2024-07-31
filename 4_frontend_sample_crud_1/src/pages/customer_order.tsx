@@ -107,10 +107,12 @@ export default function OrderPage() {
                                     <td className="py-2 px-4 border-b text-center">
                                         <Button
                                             color="red"
-                                            leftIcon={<IconTrash />}
                                             onClick={() => handleDeleteClick(order.order_id)}
+                                            variant="outline"
+                                            radius="md"
                                         >
-                                            ลบ
+                                            <IconTrash size={16} />
+                                            <span className="ml-2">ลบ</span>
                                         </Button>
                                     </td>
                                 </tr>
@@ -126,7 +128,7 @@ export default function OrderPage() {
                 title="Confirm Deletion"
             >
                 <p>ต้องการลบรายการออเดอร์นี้หรือไม่?</p>
-                <Group position="right" mt="md">
+                <Group mt="md" position="right">
                     <Button variant="outline" onClick={() => setDeleteModalOpen(false)}>
                         Cancel
                     </Button>
