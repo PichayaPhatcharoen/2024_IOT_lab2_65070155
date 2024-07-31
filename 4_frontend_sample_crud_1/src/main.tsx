@@ -19,6 +19,7 @@ import MenuEditPagebyid from "./pages/menu-edit-by-id";
 import MenuEditPage from "./pages/menus-editpage";
 import MenuCreatePage from "./pages/menu-create";
 import MenuOrdering from "./pages/menus-odering";
+import CusOrder from "./pages/customer_order";
 
 const theme = createTheme({
   primaryColor: "orange",
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
   {
     path: "/menu/ordering/:menuId",
     element: <MenuOrdering />, 
+  },
+  {
+    path: "/menu/cus_order",
+    element: <CusOrder />, 
   },
 ]);
 

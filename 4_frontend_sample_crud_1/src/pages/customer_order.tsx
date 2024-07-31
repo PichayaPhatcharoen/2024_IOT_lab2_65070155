@@ -9,7 +9,17 @@ import { Link } from "react-router-dom";
 
 export default function MenuPage() {
     const { data: orders, error } = useSWR<CustomerOrder[]>("/customer_orders");
-
+    {!orders && !error && <Loading />}
+                {error && (
+                    <Alert
+                        color="red"
+                        title="เกิดข้อผิดพลาดในการอ่านข้อมูล"
+                        icon={<IconAlertTriangleFilled />}
+                    >
+                        {error.message}
+                    </Alert>
+                )}
+    
     return (
         <Layout>
             <section
@@ -42,6 +52,7 @@ export default function MenuPage() {
                                 
                             </tr>
                         </table>
+                        
                         // <div className="border border-solid border-neutral-200" key={menu.id}>
                         //     <img
                         //         src="https://placehold.co/150x200"
@@ -64,6 +75,6 @@ export default function MenuPage() {
                 </div>
 
             </section>
-            </Layout>
+        </Layout>
     );
 }
