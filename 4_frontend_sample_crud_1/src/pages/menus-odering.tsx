@@ -17,11 +17,11 @@ export default function MenuEditById() {
   const { menuId } = useParams<{ menuId: string }>();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
-  const { data: menu, isLoading, error } = useSWR<Menu>(`/api/v1/menus/${menuId}`, fetchMenu);
+  const { data: menu, isLoading, error } = useSWR<Menu>(`/menus/${menuId}`, fetchMenu);
   const orderEditForm = useForm({
     initialValues: {
       customer_name: "",
-      menu_name: "",
+      menu_name: "", 
       quantity: 1,
       total_price: 0,
       order_note: "",
@@ -31,7 +31,6 @@ export default function MenuEditById() {
       quantity: (value) => (value > 0 ? null : "กรุณาระบุจำนวนที่ถูกต้อง"),
     },
   });
-
   useEffect(() => {
     if (menu) {
       orderEditForm.setValues({
@@ -45,14 +44,14 @@ export default function MenuEditById() {
   const handleSubmit = async (values: typeof orderEditForm.values) => {
     try {
       setIsProcessing(true);
-      await axios.post<CustomerOrder>("/api/v1/customer_orders", {
+      await axios.post<CustomerOrder>("/customer_orders", {
         menu_name: values.menu_name,
         customer_name: values.customer_name,
         order_note: values.order_note,
         quantity: values.quantity,
         total_price: values.total_price,
       });
-
+  
       notifications.show({
         title: "สั่งเครื่องดื่มสำเร็จ",
         message: "ได้รับออเดอร์เรียบร้อยแล้ว",
@@ -62,7 +61,7 @@ export default function MenuEditById() {
     } catch (error) {
       if (error instanceof AxiosError) {
         const status = error.response?.status;
-
+  
         if (status === 404) {
           notifications.show({
             title: "ไม่พบข้อมูลเมนู",
@@ -117,7 +116,7 @@ export default function MenuEditById() {
         )}
 
         {!!menu && (
-          <form onSubmit={orderEditForm.onSubmit(handleSubmit)} className="space-y-8">
+          <form onSubmit={orderEditForm.onSubmit(handleSubmit)} method="post" className="space-y-8">
             <TextInput
               label="ชื่อเมนู"
               placeholder="ชื่อเมนู"
