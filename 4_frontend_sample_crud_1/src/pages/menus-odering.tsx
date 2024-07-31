@@ -18,7 +18,6 @@ export default function MenuEditById() {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const { data: menu, isLoading, error } = useSWR<Menu>(`/api/v1/menus/${menuId}`, fetchMenu);
-
   const orderEditForm = useForm({
     initialValues: {
       customer_name: "",
@@ -118,10 +117,7 @@ export default function MenuEditById() {
         )}
 
         {!!menu && (
-          <form
-            onSubmit={orderEditForm.onSubmit(handleSubmit)}
-            className="space-y-8"
-          >
+          <form onSubmit={orderEditForm.onSubmit(handleSubmit)} className="space-y-8">
             <TextInput
               label="ชื่อเมนู"
               placeholder="ชื่อเมนู"
