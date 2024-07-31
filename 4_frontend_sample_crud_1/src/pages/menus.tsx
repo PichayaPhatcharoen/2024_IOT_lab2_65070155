@@ -27,13 +27,13 @@ export default function MenuPage() {
                 <div className="flex justify-between">
                     <h1>รายการเมนูเครื่องดื่ม</h1>
 
-                    <div className="grid grid-cols-3 mr-5">
+                    <div className="grid grid-cols-3">
                         <Button component={Link}
                             leftSection={<IconPlus />}
                             to="/menus/create"
                             size="xs"
                             variant="primary"
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 mr-5"
                         >
                             เพิ่มเมนู
                         </Button>
@@ -41,7 +41,7 @@ export default function MenuPage() {
                             to="/menus/edit"
                             size="xs"
                             variant="primary"
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 mr-5"
                         >
                             แก้ไขเมนู
                         </Button>
@@ -49,7 +49,7 @@ export default function MenuPage() {
                             to="/menus/cus_orders"
                             size="xs"
                             variant="primary"
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 mr-5"
                         >
                             ดูคำสั่งซื้อลูกค้า
                         </Button>
