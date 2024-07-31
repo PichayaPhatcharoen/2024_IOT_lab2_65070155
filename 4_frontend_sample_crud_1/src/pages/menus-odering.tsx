@@ -18,7 +18,7 @@ export default function MenuEditById() {
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const { data: menu, isLoading, error } = useSWR<Menu>(`/menus/${menuId}`, fetchMenu);
-  const orderCreateForm = useForm({
+  const orderEditForm = useForm({
     initialValues: {
       customer_name: "",
       menu_name: "", 
@@ -33,18 +33,18 @@ export default function MenuEditById() {
   });
   useEffect(() => {
     if (menu) {
-      orderCreateForm.setValues({
-        ...orderCreateForm.values,
+      orderEditForm.setValues({
+        ...orderEditForm.values,
         menu_name: menu.name,
-        total_price: menu.price * orderCreateForm.values.quantity,
+        total_price: menu.price * orderEditForm.values.quantity,
       });
     }
-  }, [menu, orderCreateForm.values.quantity]);
+  }, [menu, orderEditForm.values.quantity]);
 
-  const handleSubmit = async (values: typeof orderCreateForm.values) => {
+  const handleSubmit = async (values: typeof orderEditForm.values) => {
     try {
       setIsProcessing(true);
-      await axios.post<CustomerOrder>("/customer_orders", values{
+      await axios.post<CustomerOrder>("/customer_orders", values,{
         menu_name: values.menu_name,
         customer_name: values.customer_name,
         order_note: values.order_note,
@@ -57,7 +57,7 @@ export default function MenuEditById() {
         message: "ได้รับออเดอร์เรียบร้อยแล้ว",
         color: "teal",
       });
-      // navigate(`/menus`);
+      navigate(`/menus`);
     } catch (error) {
       if (error instanceof AxiosError) {
         const status = error.response?.status;
@@ -110,11 +110,11 @@ export default function MenuEditById() {
         )}
 
         {!!menu && (
-          <form onSubmit={orderCreateForm.onSubmit(handleSubmit)} method="post" className="space-y-8">
+          <form onSubmit={orderEditForm.onSubmit(handleSubmit)} method="post" className="space-y-8">
             <TextInput
               label="ชื่อเมนู"
               placeholder="ชื่อเมนู"
-              value={orderCreateForm.values.menu_name}
+              value={orderEditForm.values.menu_name}
               readOnly
             />
 
@@ -122,20 +122,20 @@ export default function MenuEditById() {
               label="จำนวนแก้ว"
               placeholder="จำนวนแก้ว"
               min={1}
-              {...orderCreateForm.getInputProps("quantity")}
+              {...orderEditForm.getInputProps("quantity")}
             />
 
             <NumberInput
               label="ราคารวม"
               placeholder="ราคา"
-              value={orderCreateForm.values.total_price}
+              value={orderEditForm.values.total_price}
               readOnly
             />
 
             <Textarea
               label="หมายเหตุถึงพนักงาน"
               placeholder="หมายเหตุถึงพนักงาน"
-              {...orderCreateForm.getInputProps("order_note")}
+              {...orderEditForm.getInputProps("order_note")}
             />
 
             <Divider />
