@@ -44,7 +44,7 @@ export default function MenuEditById() {
   const handleSubmit = async (values: typeof orderEditForm.values) => {
     try {
       setIsProcessing(true);
-      await axios.post<CustomerOrder>("/customer_orders", values,{
+      await axios.post<CustomerOrder>("/customer_orders",{
         menu_name: values.menu_name,
         customer_name: values.customer_name,
         order_note: values.order_note,
@@ -57,7 +57,7 @@ export default function MenuEditById() {
         message: "ได้รับออเดอร์เรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/menus`);
+      navigate(`/menus/ordering/:menuId`);
     } catch (error) {
       if (error instanceof AxiosError) {
         const status = error.response?.status;
