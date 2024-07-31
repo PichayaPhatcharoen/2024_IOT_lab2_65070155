@@ -3,7 +3,7 @@ import cafeBackgroundImage from "../assets/images/bg-cafe-3.jpg";
 import useSWR, { mutate } from "swr";
 import { CustomerOrder } from "../lib/models";
 import Loading from "../components/loading";
-import { Alert, Button, Modal, Group } from "@mantine/core";
+import { Alert, Button, Modal,} from "@mantine/core";
 import { IconAlertTriangleFilled, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import { showNotification } from "@mantine/notifications";
@@ -108,7 +108,6 @@ export default function OrderPage() {
                                         <Button
                                             color="red"
                                             onClick={() => handleDeleteClick(order.order_id)}
-                                            variant="outline"
                                             radius="md"
                                             className="flex items-center"
                                         >
