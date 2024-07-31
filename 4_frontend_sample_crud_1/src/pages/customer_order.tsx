@@ -27,6 +27,8 @@ export default function OrderPage() {
         );
     }
 
+    const orderList = orders || [];
+
     return (
         <Layout>
             <section
@@ -51,18 +53,24 @@ export default function OrderPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map((order) => (
-                                <tr key={order.order_id}>
-                                    <td>{order.order_id}</td>
-                                    <td>{order.customer_name}</td>
-                                    <td>{order.menu_name}</td>
-                                    <td>{order.quantity}</td>
-                                    <td>{order.total_price}</td>
-                                    <td>
-                                        <button>ลบ</button>
-                                    </td>
+                            {orderList.length === 0 ? (
+                                <tr>
+                                    <td colSpan={6} className="text-center">No orders found</td>
                                 </tr>
-                            ))}
+                            ) : (
+                                orderList.map((order) => (
+                                    <tr key={order.order_id}>
+                                        <td>{order.order_id}</td>
+                                        <td>{order.customer_name}</td>
+                                        <td>{order.menu_name}</td>
+                                        <td>{order.quantity}</td>
+                                        <td>{order.total_price}</td>
+                                        <td>
+                                            <button>ลบ</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
