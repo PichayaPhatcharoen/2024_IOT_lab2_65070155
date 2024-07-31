@@ -116,7 +116,7 @@ export default function MenuEditById() {
         )}
 
         {!!menu && (
-          <form onSubmit={orderEditForm.onSubmit(handleSubmit)} className="space-y-8">
+          <form onSubmit={orderEditForm.onSubmit(handleSubmit)} method="post" className="space-y-8">
             <TextInput
               label="ชื่อเมนู"
               placeholder="ชื่อเมนู"
