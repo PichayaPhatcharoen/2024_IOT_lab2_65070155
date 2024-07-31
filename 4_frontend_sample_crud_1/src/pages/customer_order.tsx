@@ -3,15 +3,17 @@ import cafeBackgroundImage from "../assets/images/bg-cafe-3.jpg";
 import useSWR, { mutate } from "swr";
 import { CustomerOrder } from "../lib/models";
 import Loading from "../components/loading";
-import { Alert, Button, Modal,} from "@mantine/core";
-import { IconAlertTriangleFilled} from "@tabler/icons-react";
+import { Alert, Button, Modal } from "@mantine/core";
+import { IconAlertTriangleFilled } from "@tabler/icons-react";
 import { useState } from "react";
+import axios, { AxiosError } from 'axios';
 import { showNotification } from "@mantine/notifications";
 
 export default function OrderPage() {
     const { data: orders, error } = useSWR<CustomerOrder[]>("/customer_orders");
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [orderToDelete, setOrderToDelete] = useState<number | null>(null);
+    const [isProcessing, setIsProcessing] = useState(false);
 
     if (!orders && !error) {
         return <Loading />;
@@ -41,29 +43,41 @@ export default function OrderPage() {
     const handleDelete = async () => {
         if (orderToDelete !== null) {
             try {
-                const response = await fetch(`/api/v1/customer_orders/${orderToDelete}`, {
-                    method: 'DELETE',
-                });
+                setIsProcessing(true);
+                await axios.delete(`/customer_orders/${orderToDelete}`);
                 
-                if (response.ok) {
-                    showNotification({
-                        title: 'สำเร็จ',
-                        message: 'ลบรายการสำเร็จ',
-                        color: 'green',
-                    });
-                    mutate('/customer_orders');
-                } else {
-                    throw new Error('ลบรายการไม่สำเร็จ');
-                }
-            } catch (error) {
                 showNotification({
-                    title: 'ข้อผิดพลาด',
-                    message: (error as Error).message || 'เกิดข้อผิดพลาดไม่คาดคิด',
-                    color: 'red',
+                    title: 'สำเร็จ',
+                    message: 'ลบรายการสำเร็จ',
+                    color: 'green',
                 });
+                mutate('/customer_orders');
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    if (error.response?.status === 404) {
+                        showNotification({
+                            title: 'ไม่พบรายการ',
+                            message: 'ไม่พบรายการที่ต้องการลบ',
+                            color: 'red',
+                        });
+                    } else {
+                        showNotification({
+                            title: 'ข้อผิดพลาด',
+                            message: 'ข้อมูลไม่ถูกต้อง โปรดลองอีกครั้ง',
+                            color: 'red',
+                        });
+                    }
+                } else {
+                    showNotification({
+                        title: 'ข้อผิดพลาด',
+                        message: 'เกิดข้อผิดพลาดไม่คาดคิด',
+                        color: 'red',
+                    });
+                }
             } finally {
                 setDeleteModalOpen(false);
                 setOrderToDelete(null);
+                setIsProcessing(false);
             }
         }
     };
@@ -86,6 +100,7 @@ export default function OrderPage() {
                             <th className="py-2 px-4 border-b">Order id.</th>
                             <th className="py-2 px-4 border-b">Customer Name</th>
                             <th className="py-2 px-4 border-b">Menu</th>
+                            <th className="py-2 px-4 border-b">Note</th>
                             <th className="py-2 px-4 border-b">Quantity</th>
                             <th className="py-2 px-4 border-b">Total Price</th>
                             <th className="py-2 px-4 border-b">Delete</th>
@@ -94,7 +109,7 @@ export default function OrderPage() {
                     <tbody>
                         {orderList.length === 0 ? (
                             <tr>
-                                <td colSpan={6} className="text-center py-4">ไม่มีรายการออเดอร์</td>
+                                <td colSpan={7} className="text-center py-4">ไม่มีรายการออเดอร์</td>
                             </tr>
                         ) : (
                             orderList.map((order) => (
@@ -102,6 +117,7 @@ export default function OrderPage() {
                                     <td className="py-2 px-4 border-b text-center">{order.order_id}</td>
                                     <td className="py-2 px-4 border-b text-center">{order.customer_name}</td>
                                     <td className="py-2 px-4 border-b text-center">{order.menu_name}</td>
+                                    <td className="py-2 px-4 border-b text-center">{order.order_note}</td>
                                     <td className="py-2 px-4 border-b text-center">{order.quantity}</td>
                                     <td className="py-2 px-4 border-b text-center">{order.total_price} $</td>
                                     <td className="py-2 px-4 border-b text-center">
@@ -131,7 +147,7 @@ export default function OrderPage() {
                     <Button variant="outline" onClick={() => setDeleteModalOpen(false)} className="mr-2">
                         Cancel
                     </Button>
-                    <Button color="red" onClick={handleDelete}>
+                    <Button color="red" onClick={handleDelete} loading={isProcessing}>
                         Delete
                     </Button>
                 </div>

@@ -33,7 +33,7 @@ export default function MenuPage() {
                             to="/menus/create"
                             size="xs"
                             variant="primary"
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 mr-5"
                         >
                             เพิ่มเมนู
                         </Button>
@@ -41,7 +41,7 @@ export default function MenuPage() {
                             to="/menus/"
                             size="xs"
                             variant="primary"
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 mr-5"
                         >
                             สั่งเครื่องดื่ม
                         </Button>
@@ -49,7 +49,7 @@ export default function MenuPage() {
                             to="/menus/cus_orders"
                             size="xs"
                             variant="primary"
-                            className="flex items-center space-x-2"
+                            className="flex items-center space-x-2 mr-5"
                         >
                             ดูคำสั่งซื้อลูกค้า
                         </Button>
